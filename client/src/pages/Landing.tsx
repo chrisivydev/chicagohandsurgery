@@ -18,7 +18,7 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Chicago Society for Surgery of the Hand
               </h1>
               <p className="text-xl text-blue-100 mb-8 leading-relaxed">

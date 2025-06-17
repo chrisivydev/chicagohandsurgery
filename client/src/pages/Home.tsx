@@ -46,7 +46,7 @@ export default function Home() {
       <section className="bg-gradient-to-r from-cssh-blue to-blue-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
               Welcome to CSSH
             </h1>
             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
