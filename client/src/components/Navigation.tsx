@@ -70,7 +70,7 @@ export default function Navigation() {
             {isAuthenticated ? (
               <div className="hidden lg:flex items-center space-x-4">
                 <span className="text-sm text-gray-600">
-                  Welcome, {user?.firstName || user?.email}
+                  Welcome, {user?.firstName || user?.email || 'User'}
                 </span>
                 <Button
                   onClick={handleLogout}
@@ -120,7 +120,7 @@ export default function Navigation() {
                 <>
                   <div className="border-t border-gray-200 pt-4">
                     <span className="text-sm text-gray-600 block py-2">
-                      Welcome, {user?.firstName || user?.email}
+                      Welcome, {user?.firstName || user?.email || 'User'}
                     </span>
                     <Button
                       onClick={handleLogout}
