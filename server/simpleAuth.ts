@@ -1,68 +1,44 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import type { Express, RequestHandler } from "express";
 import session from "express-session";
-import connectPg from "connect-pg-simple";
 import { storage } from "./storage";
 
-// Simple user credentials for demo (in production, store in database)
+// Demo users for testing
 const DEMO_USERS = [
   {
     id: "1",
     email: "admin@cssh.us",
-    password: "admin123", // Will be hashed
+    password: "admin123",
     firstName: "Admin",
     lastName: "User"
   },
   {
     id: "2", 
     email: "member@cssh.us",
-    password: "member123", // Will be hashed
+    password: "member123",
     firstName: "Member",
     lastName: "User"
   }
 ];
 
-export function getSession() {
-  const sessionTtl = 7 * 24 * 60 * 60 * 1000; // 1 week
-  const pgStore = connectPg(session);
-  const sessionStore = new pgStore({
-    conString: process.env.DATABASE_URL,
-    createTableIfMissing: true,
-    ttl: sessionTtl,
-    tableName: "sessions",
-  });
-  
-  return session({
-    secret: process.env.SESSION_SECRET!,
-    store: sessionStore,
+export function setupAuth(app: Express) {
+  // Session configuration
+  app.use(session({
+    secret: process.env.SESSION_SECRET || 'your-secret-key-change-in-production',
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: sessionTtl,
+      secure: false, // Set to true in production with HTTPS
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
     },
-  });
-}
+  }));
 
-async function hashPassword(password: string): Promise<string> {
-  return bcrypt.hash(password, 10);
-}
-
-async function verifyPassword(password: string, hash: string): Promise<boolean> {
-  return bcrypt.compare(password, hash);
-}
-
-export function setupAuth(app: Express) {
-  app.use(getSession());
-
-  // Initialize demo users in database
-  const initUsers = async () => {
+  // Initialize demo users
+  setTimeout(async () => {
     for (const user of DEMO_USERS) {
       try {
-        const existingUser = await storage.getUser(user.id);
-        if (!existingUser) {
+        const existing = await storage.getUser(user.id);
+        if (!existing) {
           await storage.upsertUser({
             id: user.id,
             email: user.email,
@@ -72,13 +48,10 @@ export function setupAuth(app: Express) {
           });
         }
       } catch (error) {
-        console.log(`User ${user.email} already exists or error occurred`);
+        console.log(`User initialization: ${user.email}`);
       }
     }
-  };
-  
-  // Initialize users asynchronously
-  initUsers();
+  }, 1000);
 
   // Login endpoint
   app.post("/api/login", async (req, res) => {
@@ -90,8 +63,8 @@ export function setupAuth(app: Express) {
       }
 
       // Find demo user
-      const demoUser = DEMO_USERS.find(u => u.email === email);
-      if (!demoUser || password !== demoUser.password) {
+      const demoUser = DEMO_USERS.find(u => u.email === email && u.password === password);
+      if (!demoUser) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
 

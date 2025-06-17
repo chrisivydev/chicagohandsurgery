@@ -11,6 +11,7 @@ import Members from "@/pages/Members";
 import Events from "@/pages/Events";
 import News from "@/pages/News";
 import Contact from "@/pages/Contact";
+import Login from "@/pages/Login";
 import { useAuth } from "@/hooks/useAuth";
 
 function Router() {
@@ -18,6 +19,7 @@ function Router() {
 
   return (
     <Switch>
+      <Route path="/login" component={Login} />
       {isLoading || !isAuthenticated ? (
         <>
           <Route path="/" component={Landing} />
