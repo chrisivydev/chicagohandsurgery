@@ -65,27 +65,27 @@
   .cssh-blue {
     color: var(--cssh-blue);
   }
-  
+
   .bg-cssh-blue {
     background-color: var(--cssh-blue);
   }
-  
+
   .border-cssh-blue {
     border-color: var(--cssh-blue);
   }
-  
+
   .hover\:bg-cssh-blue:hover {
     background-color: var(--cssh-blue);
   }
-  
+
   .hover\:text-cssh-blue:hover {
     color: var(--cssh-blue);
   }
-  
+
   .focus\:ring-cssh-blue:focus {
     --tw-ring-color: var(--cssh-blue);
   }
-  
+
   .focus\:border-cssh-blue:focus {
     border-color: var(--cssh-blue);
   }

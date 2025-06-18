@@ -26,13 +26,13 @@ const upcomingEvents: Event[] = [
   {
     id: "1",
     title: "Monthly Educational Meeting",
-    description: "\"Advanced Techniques in Microsurgical Reconstruction\" - Dr. Jennifer Adams, Mayo Clinic",
+    description: '"Advanced Techniques in Microsurgical Reconstruction" - Dr. Jennifer Adams, Mayo Clinic',
     date: "March 15, 2024",
     time: "6:30 PM - 8:30 PM",
     location: "Northwestern Memorial Hospital",
     credits: "2.0 CME Credits",
     month: "MAR",
-    day: "15"
+    day: "15",
   },
   {
     id: "2",
@@ -43,7 +43,7 @@ const upcomingEvents: Event[] = [
     location: "University of Chicago Medicine",
     credits: "1.5 CME Credits",
     month: "APR",
-    day: "12"
+    day: "12",
   },
   {
     id: "3",
@@ -54,23 +54,23 @@ const upcomingEvents: Event[] = [
     location: "Chicago Marriott Downtown",
     credits: "8.0 CME Credits",
     month: "MAY",
-    day: "18"
-  }
+    day: "18",
+  },
 ];
 
 const pastEvents = [
   {
     title: "February Educational Meeting",
-    description: "\"Pediatric Hand Surgery: Special Considerations\" - Dr. Michael Rodriguez",
+    description: '"Pediatric Hand Surgery: Special Considerations" - Dr. Michael Rodriguez',
     date: "February 15, 2024",
-    attendees: "45 attendees"
+    attendees: "45 attendees",
   },
   {
     title: "Winter Workshop Series",
     description: "Three-part series on advanced arthroscopic techniques",
     date: "January 2024",
-    attendees: "32 attendees"
-  }
+    attendees: "32 attendees",
+  },
 ];
 
 export default function Events() {
@@ -126,11 +126,10 @@ export default function Events() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
-      
+      {/* <Navigation /> */}
+
       <div className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Events & Meetings</h1>
             <p className="text-xl text-gray-600">Stay connected with our educational meetings and professional events</p>
@@ -139,7 +138,7 @@ export default function Events() {
           {/* Upcoming Events */}
           <div className="mb-16">
             <h2 className="text-2xl font-bold mb-8">Upcoming Events</h2>
-            
+
             <div className="space-y-6">
               {upcomingEvents.map((event) => (
                 <Card key={event.id} className="hover:shadow-md transition-shadow duration-200">
@@ -172,11 +171,7 @@ export default function Events() {
                         </div>
                       </div>
                       <div className="mt-4 lg:mt-0 lg:ml-6">
-                        <Button 
-                          onClick={() => handleRegister(event.title)}
-                          disabled={registerMutation.isPending}
-                          className="bg-cssh-blue hover:bg-blue-700"
-                        >
+                        <Button onClick={() => handleRegister(event.title)} disabled={registerMutation.isPending} className="bg-cssh-blue hover:bg-blue-700">
                           {registerMutation.isPending ? "Registering..." : "Register"}
                         </Button>
                       </div>
@@ -198,7 +193,7 @@ export default function Events() {
                 <p className="text-gray-600 text-sm">Regular educational meetings with guest speakers and case presentations</p>
               </CardContent>
             </Card>
-            
+
             <Card className="text-center">
               <CardContent className="p-6">
                 <div className="w-16 h-16 bg-cssh-blue rounded-full flex items-center justify-center mx-auto mb-4">
@@ -208,7 +203,7 @@ export default function Events() {
                 <p className="text-gray-600 text-sm">Hands-on workshops and continuing medical education opportunities</p>
               </CardContent>
             </Card>
-            
+
             <Card className="text-center">
               <CardContent className="p-6">
                 <div className="w-16 h-16 bg-cssh-blue rounded-full flex items-center justify-center mx-auto mb-4">

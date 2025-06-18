@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation";
+import Events from "@/pages/Events";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,39 +13,23 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      
+
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-cssh-blue to-blue-800 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
-                Chicago Society for Surgery of the Hand
-              </h1>
-              <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-                Advancing hand surgery excellence through education, research, and professional collaboration in the Chicagoland area.
-              </p>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 cssh-blue">Chicago Society for Surgery of the Hand</h1>
+              <p className="text-xl cssh-blue mb-8 leading-relaxed">Uniting Hand Surgeons Across Chicago to Share Knowledge, Inspire Innovation, and Improve Patient Care.</p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  onClick={handleLogin}
-                  className="bg-white text-cssh-blue px-8 py-3 hover:bg-gray-100"
-                >
+                <Button className="btn-primary px-8 py-3 bg-cssh-blue hover:bg-gray-400">View Events</Button>
+                <Button onClick={handleLogin} className="btn-primary px-8 py-3 bg-cssh-blue hover:bg-gray-400">
                   Become a Member
-                </Button>
-                <Button 
-                  variant="outline"
-                  className="border-2 border-white text-white px-8 py-3 hover:bg-white hover:text-cssh-blue"
-                >
-                  View Events
                 </Button>
               </div>
             </div>
             <div className="hidden lg:block">
-              <img 
-                src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-                alt="Medical professional consultation" 
-                className="rounded-xl shadow-2xl w-full h-auto object-cover"
-              />
+              <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Medical professional consultation" className="rounded-xl shadow-2xl w-full h-auto object-cover" />
             </div>
           </div>
         </div>
@@ -53,13 +38,23 @@ export default function Landing() {
       {/* Mission & Vision */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              To promote excellence in hand surgery through continuing education, scientific research, and fostering professional relationships among hand surgery specialists in the Chicago metropolitan area.
-            </p>
+          <div className="flex flex-col lg:flex-row items-stretch mb-12 gap-0 lg:gap-[2rem]">
+            {/* Image Section */}
+            <div className="w-full lg:w-1/3 mb-6 lg:mb-0 flex justify-center lg:justify-start items-stretch">
+              <img src="/src/assets/home/surgery.jpg" alt="Image of a hand surgery" className="h-full w-auto object-contain" style={{ borderRadius: "5%" }} />
+            </div>
+
+            {/* Text Section */}
+            <div className="text-left lg:w-2/3 flex flex-col justify-center">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to The Chicago Society for Surgery of the Hand</h2>
+              <p className="text-lg text-gray-600" style={{ textAlign: "justify" }}>
+                The Chicago Society for Surgery of the Hand is dedicated to advancing the field of hand surgery through ongoing education, professional collaboration, and the promotion of innovative research. Since 1978, we have brought together hand
+                surgeons from the Chicago metropolitan area and Rockford, Illinois to foster collegiality, share knowledge, and elevate patient care. Through regular forums, invited lectures, and the annual Sumner Koch award, we honor impactful
+                clinical research and support a thriving community committed to excellence in hand surgery.
+              </p>
+            </div>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="hover:shadow-md transition-shadow duration-200">
               <CardContent className="p-8">
@@ -70,7 +65,7 @@ export default function Landing() {
                 <p className="text-gray-600">Providing cutting-edge educational opportunities and resources for hand surgery professionals.</p>
               </CardContent>
             </Card>
-            
+
             <Card className="hover:shadow-md transition-shadow duration-200">
               <CardContent className="p-8">
                 <div className="w-12 h-12 bg-cssh-blue rounded-lg flex items-center justify-center mb-6">
@@ -80,7 +75,7 @@ export default function Landing() {
                 <p className="text-gray-600">Supporting innovative research initiatives that advance the field of hand surgery.</p>
               </CardContent>
             </Card>
-            
+
             <Card className="hover:shadow-md transition-shadow duration-200">
               <CardContent className="p-8">
                 <div className="w-12 h-12 bg-cssh-blue rounded-lg flex items-center justify-center mb-6">
@@ -94,12 +89,13 @@ export default function Landing() {
         </div>
       </section>
 
+      <Events />
+
       {/* Quick Actions */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12">Quick Actions</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
             <Card className="hover:shadow-lg transition-shadow duration-200 cursor-pointer">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-cssh-blue rounded-full flex items-center justify-center mx-auto mb-4">
@@ -142,7 +138,6 @@ export default function Landing() {
           </div>
         </div>
       </section>
-
       <Footer />
     </div>
   );
