@@ -9,12 +9,11 @@ export default function Footer() {
           {/* Organization Info */}
           <div className="col-span-2">
             <div className="flex items-center space-x-4 mb-6">
-              {/* <div className="w-12 h-12 bg-cssh-blue rounded-lg flex items-center justify-center">
-                <HandMetal className="text-white text-xl" />
-              </div> */}
+              <div className="w-16 h-16 flex items-center justify-center">
+                <img src="/public/assets/home/CSSH-footer-logo.png" alt="CSSH Logo" style={{ width: "100%", transform: "rotate(-5deg)" }} />
+              </div>
               <div>
-                <img src="/src/assets/home/CSSH-footer-logo.png" alt="CSSH Logo" style={{ width: "30%", transform: "rotate(-5deg)" }} />
-                <p className="text-gray-400">Chicago Society for Surgery of the Hand</p>
+                <h3 className="text-lg font-semibold">Chicago Society for Surgery of the Hand</h3>
               </div>
             </div>
             <p className="text-gray-400 mb-6 max-w-md">Advancing hand surgery excellence through education, research, and professional collaboration in the Chicagoland area.</p>

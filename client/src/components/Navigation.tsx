@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X, HandMetal } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { SheetContent } from "@/components/ui/sheet";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -40,11 +41,11 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-end py-4">
           {/* Logo Section */}
-          <Link href="/" className="flex items-center space-x-4">
-            <div>
-              <img src="/src/assets/home/logo_vector_5.png" alt="CSSH Logo" style={{ width: "80%" }} />
-            </div>
-          </Link>
+          <div className="flex items-center space-x-4">
+            <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+              <img src="/public/assets/home/logo_vector_5.png" alt="CSSH Logo" style={{ width: "80%" }} />
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">

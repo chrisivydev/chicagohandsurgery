@@ -247,8 +247,6 @@ export default function EventsLanding() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

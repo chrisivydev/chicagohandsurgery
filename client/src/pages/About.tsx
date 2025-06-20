@@ -29,7 +29,7 @@ export default function About() {
                 <p>
                   As the society expanded, so did its influence, drawing members from greater Chicago, Rockford, Peoria, and northern Indiana. In 2008, Bob Schenck was named Historian, and the executive board structure evolved to support long-term
                   leadership. By 2017, modernization efforts were underway, including new by-laws, incorporation, and a dedicated website. That same year, the Stromberg Lectureship was renamed the Mason-Stromberg Lectureship to recognize both
-                  Stromberg and Michael Mason. The society remains indebted to Bob Schenck for decades of leadership and to Patricia “Dru” Gilbert, whose stewardship helped preserve CSSH’s history and guide its financial health into the modern era.
+                  Stromberg and Michael Mason. The society remains indebted to Bob Schenck for decades of leadership and to Patricia "Dru" Gilbert, whose stewardship helped preserve CSSH's history and guide its financial health into the modern era.
                 </p>
               </div>
             </div>
@@ -41,37 +41,37 @@ export default function About() {
           {/* Leadership */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center mb-8">Our Executive Board</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <img src="src/assets/about/Executive Board CSSH/andre_ivy_Duly_Medical_Group.jpg" alt="Dr. Andre Ivy - President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
-                <h3 className="text-lg font-semibold">Andre Ivy, MD</h3>
-                <p className="text-cssh-blue font-medium">President</p>
-                <p className="text-gray-600 text-sm mt-2">Northwestern Medicine</p>
-              </div>
-              <div className="text-center">
-                <img src="src/assets/about/Executive Board CSSH/Sonya Agnew, MD - Program Director2.jpg" alt="Dr. Sonya Agnew, MD - President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
-                <h3 className="text-lg font-semibold">Sonya Agnew, MD</h3>
-                <p className="text-cssh-blue font-medium">Former President</p>
-                <p className="text-gray-600 text-sm mt-2">Northwestern Medicine</p>
-              </div>
-              <div className="text-center">
-                <img src="src/assets/about/Executive Board CSSH/Brian_foster_MD.jpg" alt="Dr. Brian Foster, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
-                <h3 className="text-lg font-semibold">Brian Foster, MD</h3>
-                <p className="text-cssh-blue font-medium">Treasurer</p>
-                <p className="text-gray-600 text-sm mt-2">Northwestern Medicine</p>
-              </div>
-              <div className="text-center">
-                <img src="src/assets/about/Executive Board CSSH/sam-biafora480.jpg" alt="Dr. Brian Foster, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
-                <h3 className="text-lg font-semibold">Sam Biafora, MD</h3>
-                <p className="text-cssh-blue font-medium">Program Director</p>
-                <p className="text-gray-600 text-sm mt-2">Northwestern Medicine</p>
-              </div>
-              <div className="text-center">
-                <img src="src/assets/about/Executive Board CSSH/Brian_foster_MD.jpg" alt="Dr. Brian Foster, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
-                <h3 className="text-lg font-semibold">Matthew Bernstein, MD</h3>
-                <p className="text-cssh-blue font-medium">Immediate Past President</p>
-                <p className="text-gray-600 text-sm mt-2">Northwestern Medicine</p>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <Card className="text-center">
+                <CardContent className="p-6">
+                  <img src="/public/assets/about/Executive Board CSSH/andre_ivy_Duly_Medical_Group.jpg" alt="Dr. Andre Ivy - President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+                  <h4 className="text-lg font-semibold">Andre Ivy, MD - President</h4>
+                </CardContent>
+              </Card>
+              <Card className="text-center">
+                <CardContent className="p-6">
+                  <img src="/public/assets/about/Executive Board CSSH/Sonya Agnew, MD - Program Director2.jpg" alt="Dr. Sonya Agnew, MD - President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+                  <h4 className="text-lg font-semibold">Sonya Agnew, MD - Program Director</h4>
+                </CardContent>
+              </Card>
+              <Card className="text-center">
+                <CardContent className="p-6">
+                  <img src="/public/assets/about/Executive Board CSSH/Brian_foster_MD.jpg" alt="Dr. Brian Foster, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+                  <h4 className="text-lg font-semibold">Brian Foster, MD - Vice President</h4>
+                </CardContent>
+              </Card>
+              <Card className="text-center">
+                <CardContent className="p-6">
+                  <img src="/public/assets/about/Executive Board CSSH/sam-biafora480.jpg" alt="Dr. Sam Biafora, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+                  <h4 className="text-lg font-semibold">Sam Biafora, MD - Secretary</h4>
+                </CardContent>
+              </Card>
+              <Card className="text-center">
+                <CardContent className="p-6">
+                  <img src="/public/assets/about/Executive Board CSSH/Matthew Bernstein, MD - Treasurer2.jpg" alt="Dr. Matthew Bernstein, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+                  <h4 className="text-lg font-semibold">Matthew Bernstein, MD - Treasurer</h4>
+                </CardContent>
+              </Card>
             </div>
           </div>
 
