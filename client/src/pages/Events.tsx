@@ -40,7 +40,7 @@ const upcomingEvents: Event[] = [
     speakerName: "Jeffrey B. Friedrich, MD, MC, FACS",
     speakerTitle: "[ROLE]",
     speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/src/assets/Home/api-bioimage-jeffrey-friedrich.jpg",
+    speakerImage: "/assets/Home/api-bioimage-jeffrey-friedrich.jpg",
   },
   {
     id: "2",
@@ -55,7 +55,7 @@ const upcomingEvents: Event[] = [
     speakerName: "Dr. S Raja Sabapathy",
     speakerTitle: "[ROLE]",
     speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/src/assets/Home/Raja Sabapathy - International 2024.jpg",
+    speakerImage: "/assets/Home/Raja Sabapathy - International 2024.jpg",
   },
   {
     id: "3",
@@ -70,7 +70,7 @@ const upcomingEvents: Event[] = [
     speakerName: "Harry Hoyen, MD",
     speakerTitle: "[ROLE]",
     speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/src/assets/Home/Harry_Hoyen_-_Blair.jpg",
+    speakerImage: "/assets/Home/Harry_Hoyen_-_Blair.jpg",
   },
   {
     id: "4",
@@ -85,7 +85,7 @@ const upcomingEvents: Event[] = [
     speakerName: "Asif Ilyas, MD",
     speakerTitle: "[ROLE]",
     speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/src/assets/Home/Asif Ilyas.jpg",
+    speakerImage: "/assets/Home/Asif Ilyas.jpg",
   },
 ];
 
