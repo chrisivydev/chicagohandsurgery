@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="col-span-2">
             <div className="flex items-center space-x-4 mb-6">
               <div className="w-16 h-16 flex items-center justify-center">
-                <img src="/public/assets/home/CSSH-footer-logo.png" alt="CSSH Logo" style={{ width: "100%", transform: "rotate(-5deg)" }} />
+                <img src="/assets/home/CSSH-footer-logo.png" alt="CSSH Logo" style={{ width: "100%", transform: "rotate(-5deg)" }} />
               </div>
               <div>
                 <h3 className="text-lg font-semibold">Chicago Society for Surgery of the Hand</h3>

@@ -59,7 +59,7 @@ export default function Landing() {
           <div className="flex flex-col lg:flex-row items-stretch mb-12 gap-0 lg:gap-[2rem]">
             {/* Image Section */}
             <div className="w-full lg:w-1/3 mb-6 lg:mb-0 flex justify-center lg:justify-start items-stretch">
-              <img src="/public/assets/home/surgery.jpg" alt="Image of a hand surgery" className="h-full w-auto object-contain" style={{ borderRadius: "5%" }} />
+              <img src="/assets/home/surgery.jpg" alt="Image of a hand surgery" className="h-full w-auto object-contain" style={{ borderRadius: "5%" }} />
             </div>
 
             {/* Text Section */}

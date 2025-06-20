@@ -44,31 +44,31 @@ export default function About() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <Card className="text-center">
                 <CardContent className="p-6">
-                  <img src="/public/assets/about/Executive Board CSSH/andre_ivy_Duly_Medical_Group.jpg" alt="Dr. Andre Ivy - President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+                  <img src="/assets/about/Executive Board CSSH/andre_ivy_Duly_Medical_Group.jpg" alt="Dr. Andre Ivy - President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
                   <h4 className="text-lg font-semibold">Andre Ivy, MD - President</h4>
                 </CardContent>
               </Card>
               <Card className="text-center">
                 <CardContent className="p-6">
-                  <img src="/public/assets/about/Executive Board CSSH/Sonya Agnew, MD - Program Director2.jpg" alt="Dr. Sonya Agnew, MD - President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+                  <img src="/assets/about/Executive Board CSSH/Sonya Agnew, MD - Program Director2.jpg" alt="Dr. Sonya Agnew, MD - President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
                   <h4 className="text-lg font-semibold">Sonya Agnew, MD - Program Director</h4>
                 </CardContent>
               </Card>
               <Card className="text-center">
                 <CardContent className="p-6">
-                  <img src="/public/assets/about/Executive Board CSSH/Brian_foster_MD.jpg" alt="Dr. Brian Foster, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+                  <img src="/assets/about/Executive Board CSSH/Brian_foster_MD.jpg" alt="Dr. Brian Foster, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
                   <h4 className="text-lg font-semibold">Brian Foster, MD - Vice President</h4>
                 </CardContent>
               </Card>
               <Card className="text-center">
                 <CardContent className="p-6">
-                  <img src="/public/assets/about/Executive Board CSSH/sam-biafora480.jpg" alt="Dr. Sam Biafora, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+                  <img src="/assets/about/Executive Board CSSH/sam-biafora480.jpg" alt="Dr. Sam Biafora, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
                   <h4 className="text-lg font-semibold">Sam Biafora, MD - Secretary</h4>
                 </CardContent>
               </Card>
               <Card className="text-center">
                 <CardContent className="p-6">
-                  <img src="/public/assets/about/Executive Board CSSH/Matthew Bernstein, MD - Treasurer2.jpg" alt="Dr. Matthew Bernstein, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
+                  <img src="/assets/about/Executive Board CSSH/Matthew Bernstein, MD - Treasurer2.jpg" alt="Dr. Matthew Bernstein, MD- President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
                   <h4 className="text-lg font-semibold">Matthew Bernstein, MD - Treasurer</h4>
                 </CardContent>
               </Card>
