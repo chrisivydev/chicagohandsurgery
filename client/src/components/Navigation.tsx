@@ -3,7 +3,8 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X, HandMetal } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { assetPath } from "@/lib/utils";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -43,7 +44,7 @@ export default function Navigation() {
           {/* Logo Section */}
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-              <img src="/assets/home/logo_vector_5.png" alt="CSSH Logo" style={{ width: "75%" }} />
+              <img src={`${assetPath}/home/logo_vector_5.png`} alt="CSSH Logo" className="h-16" />
             </Link>
           </div>
 
