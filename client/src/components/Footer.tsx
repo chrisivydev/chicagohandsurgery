@@ -6,21 +6,18 @@ export default function Footer() {
     <footer className="bg-gray-900 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-8">
-          
           {/* Organization Info */}
           <div className="col-span-2">
             <div className="flex items-center space-x-4 mb-6">
-              <div className="w-12 h-12 bg-cssh-blue rounded-lg flex items-center justify-center">
+              {/* <div className="w-12 h-12 bg-cssh-blue rounded-lg flex items-center justify-center">
                 <HandMetal className="text-white text-xl" />
-              </div>
+              </div> */}
               <div>
-                <h3 className="text-xl font-bold">CSSH</h3>
+                <img src="/src/assets/home/CSSH-footer-logo.png" alt="CSSH Logo" style={{ width: "30%", transform: "rotate(-5deg)" }} />
                 <p className="text-gray-400">Chicago Society for Surgery of the Hand</p>
               </div>
             </div>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Advancing hand surgery excellence through education, research, and professional collaboration in the Chicagoland area.
-            </p>
+            <p className="text-gray-400 mb-6 max-w-md">Advancing hand surgery excellence through education, research, and professional collaboration in the Chicagoland area.</p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
                 <Linkedin className="text-xl" />
@@ -38,11 +35,31 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><Link href="/about" className="hover:text-white transition-colors duration-200">About Us</Link></li>
-              <li><Link href="/members" className="hover:text-white transition-colors duration-200">Membership</Link></li>
-              <li><Link href="/events" className="hover:text-white transition-colors duration-200">Events</Link></li>
-              <li><Link href="/news" className="hover:text-white transition-colors duration-200">News</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors duration-200">Contact</Link></li>
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors duration-200">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/members" className="hover:text-white transition-colors duration-200">
+                  Membership
+                </Link>
+              </li>
+              <li>
+                <Link href="/events" className="hover:text-white transition-colors duration-200">
+                  Events
+                </Link>
+              </li>
+              <li>
+                <Link href="/news" className="hover:text-white transition-colors duration-200">
+                  News
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors duration-200">
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -50,7 +67,13 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <div className="space-y-2 text-gray-400">
-              <p>150 N. Michigan Avenue<br />Suite 2550<br />Chicago, IL 60611</p>
+              <p>
+                150 N. Michigan Avenue
+                <br />
+                Suite 2550
+                <br />
+                Chicago, IL 60611
+              </p>
               <p>(312) 555-0123</p>
               <p>info@cssh.us</p>
             </div>

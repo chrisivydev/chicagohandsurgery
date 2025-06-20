@@ -20,72 +20,41 @@ interface Event {
   credits: string;
   month: string;
   day: string;
-  speakerName: string;
-  speakerTitle: string;
-  speakerSpecialty: string;
-  speakerImage: string;
 }
 
 const upcomingEvents: Event[] = [
   {
     id: "1",
-    title: "Schenck Lectureship",
-    description: "Multidisciplinary Management of the Mangled Hand",
-    date: "October 16, 2024",
-    time: "6:30 PM",
-    location: "Capital Grille - 633 N. St Clair St, Chicago IL 60611, Valet Available",
+    title: "Monthly Educational Meeting",
+    description: '"Advanced Techniques in Microsurgical Reconstruction" - Dr. Jennifer Adams, Mayo Clinic',
+    date: "March 15, 2024",
+    time: "6:30 PM - 8:30 PM",
+    location: "Northwestern Memorial Hospital",
     credits: "2.0 CME Credits",
-    month: "OCT",
-    day: "16",
-    speakerName: "Jeffrey B. Friedrich, MD, MC, FACS",
-    speakerTitle: "[ROLE]",
-    speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/src/assets/Home/api-bioimage-jeffrey-friedrich.jpg",
+    month: "MAR",
+    day: "15",
   },
   {
     id: "2",
-    title: "International Guest Virtual Lecture",
-    description: "Soft Tissue coverage in Major Upper Limb Trauma",
-    date: "December 11, 2024",
-    time: "7:30 PM",
+    title: "Case Presentation Evening",
+    description: "Interactive case discussions and peer consultation sessions",
+    date: "April 12, 2024",
+    time: "7:00 PM - 9:00 PM",
     location: "University of Chicago Medicine",
     credits: "1.5 CME Credits",
-    month: "DEC",
-    day: "11",
-    speakerName: "Dr. S Raja Sabapathy",
-    speakerTitle: "[ROLE]",
-    speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/src/assets/Home/Raja Sabapathy - International 2024.jpg",
+    month: "APR",
+    day: "12",
   },
   {
     id: "3",
-    title: "Blair Lectureship",
-    description: "Wrist Arthroplasty: Why Can't We Catch Up?",
-    date: "February 19, 2025",
-    time: "6:30 PM",
-    location: "Gibson's Steakhouse - 5464 N River Rd, Rosemont, IL",
+    title: "Annual Spring Symposium",
+    description: "Full-day conference featuring latest research and innovations in hand surgery",
+    date: "May 18, 2024",
+    time: "8:00 AM - 5:00 PM",
+    location: "Chicago Marriott Downtown",
     credits: "8.0 CME Credits",
     month: "MAY",
     day: "18",
-    speakerName: "Harry Hoyen, MD",
-    speakerTitle: "[ROLE]",
-    speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/src/assets/Home/Harry_Hoyen_-_Blair.jpg",
-  },
-  {
-    id: "4",
-    title: "Mason-Stromberg Lectureship",
-    description: "Wide Awake Hand Surgery: Why Are We Wasting Time In the Operating Room?",
-    date: "April 10, 2025",
-    time: "6:30 PM",
-    location: "Morton's Steakhouse - 65 E. Wacker Pl, Chicago IL",
-    credits: "8.0 CME Credits",
-    month: "MAY",
-    day: "18",
-    speakerName: "Asif Ilyas, MD",
-    speakerTitle: "[ROLE]",
-    speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/src/assets/Home/Asif Ilyas.jpg",
   },
 ];
 
@@ -104,7 +73,7 @@ const pastEvents = [
   },
 ];
 
-export default function Events() {
+export default function EventsLanding() {
   const { isAuthenticated } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -155,84 +124,73 @@ export default function Events() {
     registerMutation.mutate(eventTitle);
   };
 
+  const viewAllEvents = () => {
+    window.location.href = "/events";
+  };
+
   return (
     <div id="events-section" className="min-h-screen bg-white">
-      <Navigation />
+      {/* <Navigation /> */}
 
       <div className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Upcoming Events</h1>
-            <p className="text-xl text-gray-600">In order to attend our lectures you must be a member or the guest of a member. To become a member, click here to fill out an application.</p>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">Events & Meetings</h1>
             <p className="text-xl text-gray-600">Stay connected with our educational meetings and professional events</p>
           </div>
 
           {/* Upcoming Events */}
           <div className="mb-16">
-            {/* <h2 className="text-2xl font-bold mb-8">Upcoming Events</h2> */}
+            <h2 className="text-2xl font-bold mb-8">Upcoming Events</h2>
 
             <div className="space-y-6">
               {upcomingEvents.map((event) => (
                 <Card key={event.id} className="hover:shadow-md transition-shadow duration-200">
                   <CardContent className="p-6">
-                    <div className="flex flex-col lg:flex-row gap-6">
-                      {/* Speaker Image */}
-                      <div className="flex-shrink-0">
-                        <img src={event.speakerImage} alt={event.speakerName} className="w-32 h-32 rounded-lg object-cover shadow-md" />
-                        <div className="bg-cssh-blue text-white rounded-lg p-3 mt-4 text-center min-w-[80px] flex-shrink-0">
-                          <div className="text-sm font-medium">{event.month}</div>
-                          <div className="text-2xl font-bold">{event.day}</div>
-                        </div>
-                      </div>
-
-                      {/* Event Details */}
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                       <div className="flex-1">
-                        <div className="flex items-start justify-between mb-4">
-                          <div>
+                        <div className="flex items-start space-x-4">
+                          <div className="bg-cssh-blue text-white rounded-lg p-3 text-center min-w-[80px]">
+                            <div className="text-sm font-medium">{event.month}</div>
+                            <div className="text-2xl font-bold">{event.day}</div>
+                          </div>
+                          <div className="flex-1">
                             <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
-                            <p className="text-gray-600 mb-3">{event.description}</p>
+                            <p className="text-gray-600 mb-2">{event.description}</p>
+                            <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+                              <span className="flex items-center">
+                                <Clock className="w-4 h-4 mr-1" />
+                                {event.time}
+                              </span>
+                              <span className="flex items-center">
+                                <MapPin className="w-4 h-4 mr-1" />
+                                {event.location}
+                              </span>
+                              <span className="flex items-center">
+                                <Users className="w-4 h-4 mr-1" />
+                                {event.credits}
+                              </span>
+                            </div>
                           </div>
                         </div>
-
-                        {/* Speaker Information */}
-                        <div className="mb-4">
-                          <h4 className="font-semibold text-lg text-gray-900 mb-1">{event.speakerName}</h4>
-                          <p className="text-gray-700 mb-1">{event.speakerTitle}</p>
-                          <p className="text-gray-600 text-sm">{event.speakerSpecialty}</p>
-                        </div>
-
-                        {/* Event Details */}
-                        <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
-                          <span className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1" />
-                            {event.date}
-                          </span>
-                          <span className="flex items-center">
-                            <Clock className="w-4 h-4 mr-1" />
-                            {event.time}
-                          </span>
-                          <span className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-1" />
-                            {event.location}
-                          </span>
-                          {/* <span className="flex items-center">
-                            <Users className="w-4 h-4 mr-1" />
-                            {event.credits}
-                          </span> */}
-                        </div>
-
-                        {/* Register Button */}
-                        <div className="flex justify-end">
-                          <Button onClick={() => handleRegister(event.title)} disabled={registerMutation.isPending} className="bg-cssh-blue hover:bg-blue-700">
-                            {registerMutation.isPending ? "Registering..." : "Register"}
-                          </Button>
-                        </div>
+                      </div>
+                      <div className="mt-4 lg:mt-0 lg:ml-6">
+                        <Button onClick={() => handleRegister(event.title)} disabled={registerMutation.isPending} className="bg-cssh-blue hover:bg-blue-700">
+                          {registerMutation.isPending ? "Registering..." : "Register"}
+                        </Button>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
+          </div>
+
+          {/* View All Events Button */}
+          <div className="text-center mb-16">
+            <Button onClick={viewAllEvents} className="bg-cssh-blue hover:bg-blue-700 px-8 py-3">
+              View All Events
+            </Button>
           </div>
 
           {/* Event Categories */}

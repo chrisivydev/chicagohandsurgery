@@ -1,5 +1,5 @@
 import Navigation from "@/components/Navigation";
-import Events from "@/pages/Events";
+import EventsLanding from "@/pages/EventsLanding";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,6 +8,22 @@ import { GraduationCap, Microscope, Users, BookOpen, Calendar, Newspaper, Mail }
 export default function Landing() {
   const handleLogin = () => {
     window.location.href = "/api/login";
+  };
+
+  const events = () => {
+    const eventsSection = document.getElementById("events-section");
+    if (eventsSection) {
+      const offset = 80; // Adjust this value to control how far from the top it stops
+      const elementPosition = eventsSection.offsetTop - offset;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const viewAllEvents = () => {
+    window.location.href = "/events";
   };
 
   return (
@@ -22,7 +38,9 @@ export default function Landing() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 cssh-blue">Chicago Society for Surgery of the Hand</h1>
               <p className="text-xl cssh-blue mb-8 leading-relaxed">Uniting Hand Surgeons Across Chicago to Share Knowledge, Inspire Innovation, and Improve Patient Care.</p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="btn-primary px-8 py-3 bg-cssh-blue hover:bg-gray-400">View Events</Button>
+                <Button onClick={events} className="btn-primary px-8 py-3 bg-cssh-blue hover:bg-gray-400">
+                  View Events
+                </Button>
                 <Button onClick={handleLogin} className="btn-primary px-8 py-3 bg-cssh-blue hover:bg-gray-400">
                   Become a Member
                 </Button>
@@ -89,7 +107,7 @@ export default function Landing() {
         </div>
       </section>
 
-      <Events />
+      <EventsLanding />
 
       {/* Quick Actions */}
       <section className="py-16">

@@ -21,11 +21,16 @@ export default function About() {
               <h2 className="text-2xl font-bold mb-6">Our History</h2>
               <div className="prose prose-lg text-gray-600 space-y-4">
                 <p>
-                  The Chicago Society for Surgery of the Hand was established to bring together the finest hand surgery specialists in the Chicagoland area. Our organization has been at the forefront of advancing hand surgery techniques and patient
-                  care for decades.
+                  The Chicago Society for Surgery of the Hand (CSSH) was founded in 1978 after Sidney Blair recognized the need to connect hand surgeons working in isolation across Chicago-area institutions. Alongside William Stromberg and Robert
+                  Schenck, he established a regional society to foster collaboration, education, and improved patient care. Early meetings were held at the Union League Club with a small group of prominent surgeons, and formal by-laws were later
+                  adopted to guide membership and leadership. Key figures like John Bell, Bob Schenck, and William Dawson helped shape the society's early governance. Over the years, CSSH introduced several prestigious lectureships, including the
+                  Stromberg, Blair, and Schenck Lectureships to honor pioneers and promote clinical education across the region.
                 </p>
-                <p>Through our commitment to excellence in education and research, we have become a respected voice in the hand surgery community, contributing to improved patient outcomes and surgical innovations.</p>
-                <p>Today, CSSH continues to serve as a vital resource for hand surgery professionals, providing continuing education opportunities, fostering research initiatives, and maintaining the highest standards of patient care.</p>
+                <p>
+                  As the society expanded, so did its influence, drawing members from greater Chicago, Rockford, Peoria, and northern Indiana. In 2008, Bob Schenck was named Historian, and the executive board structure evolved to support long-term
+                  leadership. By 2017, modernization efforts were underway, including new by-laws, incorporation, and a dedicated website. That same year, the Stromberg Lectureship was renamed the Mason-Stromberg Lectureship to recognize both
+                  Stromberg and Michael Mason. The society remains indebted to Bob Schenck for decades of leadership and to Patricia “Dru” Gilbert, whose stewardship helped preserve CSSH’s history and guide its financial health into the modern era.
+                </p>
               </div>
             </div>
             <div>
@@ -35,7 +40,7 @@ export default function About() {
 
           {/* Leadership */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-8">Executive Board CSSH</h2>
+            <h2 className="text-3xl font-bold text-center mb-8">Our Executive Board</h2>
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <img src="src/assets/about/Executive Board CSSH/andre_ivy_Duly_Medical_Group.jpg" alt="Dr. Andre Ivy - President" className="w-32 h-32 rounded-full mx-auto mb-4 object-cover" />
