@@ -55,6 +55,74 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update event in JSON file
+  app.put("/api/events/:id", async (req, res) => {
+    try {
+      const eventId = parseInt(req.params.id);
+      const validatedData = insertEventSchema.parse(req.body);
+      const eventsPath = path.join(process.cwd(), "client", "public", "data", "events.json");
+
+      // Read existing events
+      const data = await fs.readFile(eventsPath, "utf8");
+      const eventsData = JSON.parse(data);
+      const events = eventsData.events || [];
+
+      // Find and update the event
+      const eventIndex = events.findIndex((e: any) => e.id === eventId);
+      if (eventIndex === -1) {
+        return res.status(404).json({ message: "Event not found" });
+      }
+
+      // Update the event
+      events[eventIndex] = {
+        ...events[eventIndex],
+        ...validatedData,
+        id: eventId, // Ensure ID doesn't change
+      };
+
+      // Write back to file
+      await fs.writeFile(eventsPath, JSON.stringify({ events }, null, 2));
+
+      res.json({ message: "Event updated successfully", event: events[eventIndex] });
+    } catch (error) {
+      console.error("Error updating event:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid event data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to update event" });
+    }
+  });
+
+  // Delete event from JSON file
+  app.delete("/api/events/:id", async (req, res) => {
+    try {
+      const eventId = parseInt(req.params.id);
+      const eventsPath = path.join(process.cwd(), "client", "public", "data", "events.json");
+
+      // Read existing events
+      const data = await fs.readFile(eventsPath, "utf8");
+      const eventsData = JSON.parse(data);
+      const events = eventsData.events || [];
+
+      // Find and remove the event
+      const eventIndex = events.findIndex((e: any) => e.id === eventId);
+      if (eventIndex === -1) {
+        return res.status(404).json({ message: "Event not found" });
+      }
+
+      const deletedEvent = events[eventIndex];
+      events.splice(eventIndex, 1);
+
+      // Write back to file
+      await fs.writeFile(eventsPath, JSON.stringify({ events }, null, 2));
+
+      res.json({ message: "Event deleted successfully", event: deletedEvent });
+    } catch (error) {
+      console.error("Error deleting event:", error);
+      res.status(500).json({ message: "Failed to delete event" });
+    }
+  });
+
   // Auth middleware
   setupAuth(app);
 
