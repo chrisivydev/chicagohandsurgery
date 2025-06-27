@@ -32,6 +32,11 @@ export default function About() {
                   leadership. By 2017, modernization efforts were underway, including new by-laws, incorporation, and a dedicated website. That same year, the Stromberg Lectureship was renamed the Mason-Stromberg Lectureship to recognize both
                   Stromberg and Michael Mason. The society remains indebted to Bob Schenck for decades of leadership and to Patricia "Dru" Gilbert, whose stewardship helped preserve CSSH's history and guide its financial health into the modern era.
                 </p>
+                <p className="text-gray-600 text-sm">
+                  <a href={`${assetPath}/History_-_Chicago_School_of_Hand_Surgery.pdf`} target="_blank" rel="noopener noreferrer">
+                    Read: History of Hand Surgery in Chicago
+                  </a>
+                </p>
               </div>
             </div>
             <div>
@@ -94,11 +99,6 @@ export default function About() {
                     </div>
                   </CardContent>
                 </Card>
-                <p className="text-gray-600 text-sm">
-                  <a href={`${assetPath}/History_-_Chicago_School_of_Hand_Surgery.pdf`} target="_blank" rel="noopener noreferrer">
-                    Read: History of Hand Surgery in Chicago
-                  </a>
-                </p>
               </div>
             </div>
           </div>

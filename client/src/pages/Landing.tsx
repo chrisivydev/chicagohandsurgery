@@ -66,7 +66,7 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6 cssh-blue">Chicago Society for Surgery of the Hand</h1>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 cssh-blue">The Chicago Society for Surgery of the Hand</h1>
               <p className="text-xl cssh-blue mb-8 leading-relaxed">Uniting Hand Surgeons Across Chicago to Share Knowledge, Inspire Innovation, and Improve Patient Care.</p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button onClick={events} className="btn-primary px-8 py-3 bg-cssh-blue hover:bg-gray-400">
@@ -78,7 +78,7 @@ export default function Landing() {
               </div>
             </div>
             <div className="hidden lg:block">
-              <img src={`${assetPath}/home/hero-hand2.png`} alt="Medical professional consultation" className="rounded-xl shadow-2xl w-full h-auto object-cover" />
+              <img src={`${assetPath}/home/hero-hand1.png`} alt="Medical professional consultation" className="rounded-xl shadow-2xl w-full max-w-lg h-auto object-cover" />
             </div>
           </div>
         </div>
@@ -100,9 +100,7 @@ export default function Landing() {
                 The Chicago Society for Surgery of the Hand is dedicated to advancing the field of hand surgery through ongoing education, professional collaboration, and the promotion of innovative research. Since 1978, we have brought together hand
                 surgeons from the Chicago metropolitan area and Rockford, Illinois to foster collegiality, share knowledge, and elevate patient care. Through regular forums,{" "}
                 <b>
-                  <a href="/events" target="_blank">
-                    invited lectures
-                  </a>
+                  <a href="/events">invited lectures</a>
                 </b>
                 , and the annual Sumner Koch award, we honor impactful clinical research and support a thriving community committed to excellence in hand surgery.
               </p>
