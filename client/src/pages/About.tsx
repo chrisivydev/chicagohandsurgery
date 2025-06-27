@@ -35,13 +35,72 @@ export default function About() {
               </div>
             </div>
             <div>
-              <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Medical team meeting" className="rounded-xl shadow-lg w-full h-auto object-cover" />
+              <h2 className="text-2xl font-bold mb-6">Our Founders</h2>
+              <div className="space-y-6">
+                {/* <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-start space-x-4">
+                      <img src={`${assetPath}/about/Founders/sidney-blair.png`} alt="Dr. Sidney Blair" className="w-20 h-20 rounded-lg object-cover flex-shrink-0" />
+                      <div>
+                        <h3 className="font-semibold text-lg mb-1">Dr. Sidney Blair</h3>
+                        <p className="text-gray-600 text-sm">
+                          Recognized the need to connect hand surgeons across Chicago-area institutions and initiated the founding of CSSH in 1978. His vision for collaboration and education laid the foundation for the society's mission.
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card> */}
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-start space-x-4">
+                      <img src={`${assetPath}/about/Founders/bill-stromberg.jpg`} alt="Dr. Sidney Blair" className="w-40 h-40 rounded-lg object-contain flex-shrink-0" />
+                      <div>
+                        <h3 className="font-semibold text-lg mb-1">William B. Stromberg Jr., MD (“Stromie”)</h3>
+                        <p className="text-gray-600 text-sm">
+                          Earned his MD from Northwestern University and began teaching at Northwestern Medical School in 1958 alongside Doctors Koch, Mason, and Bell. A specialist in both adult and pediatric hand surgery, he was known as an
+                          outstanding teacher and a valued friend. In 1984, he served as the third president of the Chicago Society for Surgery of the Hand.
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-start space-x-4">
+                      <div>
+                        <h3 className="font-semibold text-lg mb-1">Dr. Sidney Blair</h3>
+                        <p className="text-gray-600 text-sm">
+                          Born in Chicago and is credited with the original idea for the Chicago Society for Surgery of the Hand, later serving as its fourth president in 1985. He was a past chairman of the Loyola Department of Orthopaedic Surgery
+                          and Rehabilitation and was recognized as an expert in compression disorders of the peripheral nerves and the prevention of industrial hand injuries.
+                        </p>
+                      </div>
+                      <img src={`${assetPath}/about/Founders/sidney-blair.png`} alt="Dr. Sidney Blair" className="w-40 h-40 rounded-lg object-contain flex-shrink-0" />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-start space-x-4">
+                      <img src={`${assetPath}/about/Founders/bob-schenk.png`} alt="Dr. Sidney Blair" className="w-40 h-40 rounded-lg object-contain flex-shrink-0" />
+                      <div>
+                        <h3 className="font-semibold text-lg mb-1">Dr. Sidney Blair</h3>
+                        <p className="text-gray-600 text-sm">
+                          Born in Elmwood, Illinois in 1931 and served as the fifth president of the Chicago Society for Surgery of the Hand in 1986. He was a long-standing treasurer and historian of the organization. As Professor Emeritus in the
+                          Hand Surgery Section of the Department of Plastic Surgery at Rush University, he was known for pioneering dynamic traction techniques for intraarticular finger fractures.
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
 
           {/* Leadership */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-8">Our Executive Board</h2>
+            <h2 className="text-3xl font-bold text-center mb-8">Current Executive Board</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <Card className="text-center">
                 <CardContent className="p-6">
