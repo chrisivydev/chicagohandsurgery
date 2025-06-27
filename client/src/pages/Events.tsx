@@ -1,93 +1,40 @@
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, MapPin, Users } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, Plus } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { isUnauthorizedError } from "@/lib/authUtils";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Event {
-  id: string;
+  id: number;
   title: string;
   description: string;
   date: string;
   time: string;
   location: string;
-  credits: string;
-  month: string;
-  day: string;
+  credits?: string;
+  month?: string;
+  day?: string;
   speakerName: string;
   speakerTitle: string;
   speakerSpecialty: string;
   speakerImage: string;
 }
 
-const upcomingEvents: Event[] = [
-  {
-    id: "1",
-    title: "Schenck Lectureship",
-    description: "Multidisciplinary Management of the Mangled Hand",
-    date: "October 16, 2024",
-    time: "6:30 PM",
-    location: "Capital Grille - 633 N. St Clair St, Chicago IL 60611, Valet Available",
-    credits: "2.0 CME Credits",
-    month: "OCT",
-    day: "16",
-    speakerName: "Jeffrey B. Friedrich, MD, MC, FACS",
-    speakerTitle: "[ROLE]",
-    speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/assets/Home/api-bioimage-jeffrey-friedrich.jpg",
-  },
-  {
-    id: "2",
-    title: "International Guest Virtual Lecture",
-    description: "Soft Tissue coverage in Major Upper Limb Trauma",
-    date: "December 11, 2024",
-    time: "7:30 PM",
-    location: "University of Chicago Medicine",
-    credits: "1.5 CME Credits",
-    month: "DEC",
-    day: "11",
-    speakerName: "Dr. S Raja Sabapathy",
-    speakerTitle: "[ROLE]",
-    speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/assets/Home/Raja Sabapathy - International 2024.jpg",
-  },
-  {
-    id: "3",
-    title: "Blair Lectureship",
-    description: "Wrist Arthroplasty: Why Can't We Catch Up?",
-    date: "February 19, 2025",
-    time: "6:30 PM",
-    location: "Gibson's Steakhouse - 5464 N River Rd, Rosemont, IL",
-    credits: "8.0 CME Credits",
-    month: "MAY",
-    day: "18",
-    speakerName: "Harry Hoyen, MD",
-    speakerTitle: "[ROLE]",
-    speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/assets/Home/Harry_Hoyen_-_Blair.jpg",
-  },
-  {
-    id: "4",
-    title: "Mason-Stromberg Lectureship",
-    description: "Wide Awake Hand Surgery: Why Are We Wasting Time In the Operating Room?",
-    date: "April 10, 2025",
-    time: "6:30 PM",
-    location: "Morton's Steakhouse - 65 E. Wacker Pl, Chicago IL",
-    credits: "8.0 CME Credits",
-    month: "MAY",
-    day: "18",
-    speakerName: "Asif Ilyas, MD",
-    speakerTitle: "[ROLE]",
-    speakerSpecialty: "[SPECIALTY]",
-    speakerImage: "/assets/Home/Asif Ilyas.jpg",
-  },
-];
+// Helper function to format date for month/day display
+const formatDateForDisplay = (dateString: string) => {
+  const date = new Date(dateString);
+  return {
+    month: date.toLocaleDateString("en-US", { month: "short" }).toUpperCase(),
+    day: date.getDate().toString(),
+  };
+};
 
 const pastEvents = [
   {
@@ -107,53 +54,136 @@ const pastEvents = [
 export default function Events() {
   const { isAuthenticated } = useAuth();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-
-  const registerMutation = useMutation({
-    mutationFn: async (eventName: string) => {
-      await apiRequest("POST", "/api/events/register", { eventName });
-    },
-    onSuccess: () => {
-      toast({
-        title: "Registration Successful",
-        description: "You have been registered for the event.",
-      });
-      queryClient.invalidateQueries({ queryKey: ["/api/events"] });
-    },
-    onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
-          variant: "destructive",
-        });
-        setTimeout(() => {
-          window.location.href = "/api/login";
-        }, 500);
-        return;
-      }
-      toast({
-        title: "Registration Failed",
-        description: "Failed to register for the event. Please try again.",
-        variant: "destructive",
-      });
-    },
+  const [isAddEventOpen, setIsAddEventOpen] = useState(false);
+  const [events, setEvents] = useState<Event[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [newEvent, setNewEvent] = useState({
+    title: "",
+    description: "",
+    date: "",
+    time: "",
+    location: "",
+    speakerName: "",
+    speakerTitle: "",
+    speakerSpecialty: "",
+    speakerImage: "",
   });
 
-  const handleRegister = (eventTitle: string) => {
-    if (!isAuthenticated) {
+  // Load events from API
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        const response = await fetch("/api/events", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("API Response:", data); // Debug log
+        // Ensure we always have an array
+        const eventsArray = Array.isArray(data) ? data : [];
+        setEvents(eventsArray);
+      } catch (error) {
+        console.error("Error loading events:", error);
+        toast({
+          title: "Error Loading Events",
+          description: "Failed to load events data.",
+          variant: "destructive",
+        });
+        setEvents([]); // Set empty array on error
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadEvents();
+  }, [toast]);
+
+  const handleAddEvent = async () => {
+    try {
+      const dateInfo = formatDateForDisplay(newEvent.date);
+      const eventData = {
+        ...newEvent,
+        month: dateInfo.month,
+        day: dateInfo.day,
+      };
+
+      const response = await fetch("/api/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Reload events to get the updated list
+      const reloadResponse = await fetch("/api/events", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!reloadResponse.ok) {
+        throw new Error(`HTTP error! status: ${reloadResponse.status}`);
+      }
+
+      const data = await reloadResponse.json();
+      const eventsArray = Array.isArray(data) ? data : [];
+      setEvents(eventsArray);
+
+      setIsAddEventOpen(false);
+      setNewEvent({
+        title: "",
+        description: "",
+        date: "",
+        time: "",
+        location: "",
+        speakerName: "",
+        speakerTitle: "",
+        speakerSpecialty: "",
+        speakerImage: "",
+      });
       toast({
-        title: "Login Required",
-        description: "Please log in to register for events.",
+        title: "Event Added",
+        description: "The new event has been added successfully.",
+      });
+    } catch (error) {
+      console.error("Error adding event:", error);
+      toast({
+        title: "Error Adding Event",
+        description: "Failed to add the new event.",
         variant: "destructive",
       });
-      setTimeout(() => {
-        window.location.href = "/api/login";
-      }, 1000);
-      return;
     }
-    registerMutation.mutate(eventTitle);
   };
+
+  const handleInputChange = (field: string, value: string) => {
+    setNewEvent((prev) => ({ ...prev, [field]: value }));
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <p className="text-gray-600">Loading events...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div id="events-section" className="min-h-screen bg-white">
@@ -163,76 +193,135 @@ export default function Events() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Upcoming Events</h1>
-            <p className="text-xl text-gray-600">In order to attend our lectures you must be a member or the guest of a member. To become a member, click here to fill out an application.</p>
-            <p className="text-xl text-gray-600">Stay connected with our educational meetings and professional events</p>
+            <p className="text-xl text-gray-600">
+              In order to attend our lectures you must be a member or the guest of a member. To become a member, click here to fill out an application. Stay connected with our educational meetings and professional events.
+            </p>
+          </div>
+
+          {/* Add Event Button */}
+          <div className="mb-8 flex justify-center">
+            <Dialog open={isAddEventOpen} onOpenChange={setIsAddEventOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-cssh-blue hover:bg-blue-700 flex items-center gap-2">
+                  <Plus className="w-4 h-4" />
+                  Add New Event
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>Add New Event</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="eventTitle">Event Title</Label>
+                    <Input id="eventTitle" value={newEvent.title} onChange={(e) => handleInputChange("title", e.target.value)} placeholder="Enter event title" />
+                  </div>
+                  <div>
+                    <Label htmlFor="eventDescription">Event Description</Label>
+                    <Textarea id="eventDescription" value={newEvent.description} onChange={(e) => handleInputChange("description", e.target.value)} placeholder="Enter event description" rows={3} />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="eventDate">Date</Label>
+                      <Input id="eventDate" type="date" value={newEvent.date} onChange={(e) => handleInputChange("date", e.target.value)} />
+                    </div>
+                    <div>
+                      <Label htmlFor="eventTime">Time</Label>
+                      <Input id="eventTime" type="time" value={newEvent.time} onChange={(e) => handleInputChange("time", e.target.value)} />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="eventLocation">Location</Label>
+                    <Input id="eventLocation" value={newEvent.location} onChange={(e) => handleInputChange("location", e.target.value)} placeholder="Enter event location" />
+                  </div>
+                  <div>
+                    <Label htmlFor="speakerImage">Speaker Image URL</Label>
+                    <Input id="speakerImage" value={newEvent.speakerImage} onChange={(e) => handleInputChange("speakerImage", e.target.value)} placeholder="Enter speaker image URL" />
+                  </div>
+                  <div>
+                    <Label htmlFor="speakerName">Speaker Name</Label>
+                    <Input id="speakerName" value={newEvent.speakerName} onChange={(e) => handleInputChange("speakerName", e.target.value)} placeholder="Enter speaker name" />
+                  </div>
+                  <div>
+                    <Label htmlFor="speakerTitle">Speaker Title</Label>
+                    <Input id="speakerTitle" value={newEvent.speakerTitle} onChange={(e) => handleInputChange("speakerTitle", e.target.value)} placeholder="Enter speaker title" />
+                  </div>
+                  <div>
+                    <Label htmlFor="speakerSpecialty">Speaker Specialty</Label>
+                    <Input id="speakerSpecialty" value={newEvent.speakerSpecialty} onChange={(e) => handleInputChange("speakerSpecialty", e.target.value)} placeholder="Enter speaker specialty" />
+                  </div>
+                  <div className="flex justify-end gap-2 pt-4">
+                    <Button variant="outline" onClick={() => setIsAddEventOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button onClick={handleAddEvent} className="bg-cssh-blue hover:bg-blue-700">
+                      Add Event
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
 
           {/* Upcoming Events */}
           <div className="mb-16">
-            {/* <h2 className="text-2xl font-bold mb-8">Upcoming Events</h2> */}
-
-            <div className="space-y-6">
-              {upcomingEvents.map((event) => (
-                <Card key={event.id} className="hover:shadow-md transition-shadow duration-200">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col lg:flex-row gap-6">
-                      {/* Speaker Image */}
-                      <div className="flex-shrink-0">
-                        <img src={event.speakerImage} alt={event.speakerName} className="w-32 h-32 rounded-lg object-cover shadow-md" />
-                        <div className="bg-cssh-blue text-white rounded-lg p-3 mt-4 text-center min-w-[80px] flex-shrink-0">
-                          <div className="text-sm font-medium">{event.month}</div>
-                          <div className="text-2xl font-bold">{event.day}</div>
-                        </div>
-                      </div>
-
-                      {/* Event Details */}
-                      <div className="flex-1">
-                        <div className="flex items-start justify-between mb-4">
-                          <div>
-                            <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
-                            <p className="text-gray-600 mb-3">{event.description}</p>
+            {events.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-gray-600">No events found.</p>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {events.map((event) => (
+                  <Card key={event.id} className="hover:shadow-md transition-shadow duration-200">
+                    <CardContent className="p-6">
+                      <div className="flex flex-col lg:flex-row gap-6">
+                        {/* Speaker Image */}
+                        <div className="flex-shrink-0">
+                          <img src={event.speakerImage} alt={event.speakerName} className="w-32 h-32 rounded-lg object-cover shadow-md" />
+                          <div className="bg-cssh-blue text-white rounded-lg p-3 mt-4 text-center min-w-[80px] flex-shrink-0">
+                            <div className="text-sm font-medium">{event.month}</div>
+                            <div className="text-2xl font-bold">{event.day}</div>
                           </div>
                         </div>
 
-                        {/* Speaker Information */}
-                        <div className="mb-4">
-                          <h4 className="font-semibold text-lg text-gray-900 mb-1">{event.speakerName}</h4>
-                          <p className="text-gray-700 mb-1">{event.speakerTitle}</p>
-                          <p className="text-gray-600 text-sm">{event.speakerSpecialty}</p>
-                        </div>
-
                         {/* Event Details */}
-                        <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
-                          <span className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1" />
-                            {event.date}
-                          </span>
-                          <span className="flex items-center">
-                            <Clock className="w-4 h-4 mr-1" />
-                            {event.time}
-                          </span>
-                          <span className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-1" />
-                            {event.location}
-                          </span>
-                          {/* <span className="flex items-center">
-                            <Users className="w-4 h-4 mr-1" />
-                            {event.credits}
-                          </span> */}
-                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between mb-4">
+                            <div>
+                              <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
+                              <p className="text-gray-600 mb-3">{event.description}</p>
+                            </div>
+                          </div>
 
-                        {/* Register Button */}
-                        <div className="flex justify-end">
-                          <Button onClick={() => handleRegister(event.title)} disabled={registerMutation.isPending} className="bg-cssh-blue hover:bg-blue-700">
-                            {registerMutation.isPending ? "Registering..." : "Register"}
-                          </Button>
+                          {/* Speaker Information */}
+                          <div className="mb-4">
+                            <h4 className="font-semibold text-lg text-gray-900 mb-1">{event.speakerName}</h4>
+                            <p className="text-gray-700 mb-1">{event.speakerTitle}</p>
+                            <p className="text-gray-600 text-sm">{event.speakerSpecialty}</p>
+                          </div>
+
+                          {/* Event Details */}
+                          <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
+                            <span className="flex items-center">
+                              <Calendar className="w-4 h-4 mr-1" />
+                              {event.date}
+                            </span>
+                            <span className="flex items-center">
+                              <Clock className="w-4 h-4 mr-1" />
+                              {event.time}
+                            </span>
+                            <span className="flex items-center">
+                              <MapPin className="w-4 h-4 mr-1" />
+                              {event.location}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Event Categories */}

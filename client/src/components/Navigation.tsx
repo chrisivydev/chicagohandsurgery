@@ -44,7 +44,7 @@ export default function Navigation() {
           {/* Logo Section */}
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-              <img src={`${assetPath}/home/logo_vector_5.png`} alt="CSSH Logo" className="h-16" />
+              <img src={`${assetPath}/home/logo_vector_5.png`} alt="CSSH Logo" style={{ width: "85%" }} />
             </Link>
           </div>
 

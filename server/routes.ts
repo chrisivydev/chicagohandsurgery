@@ -2,15 +2,64 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./simpleAuth";
-import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema } from "@shared/schema";
+import { insertContactSubmissionSchema, insertNewsletterSubscriptionSchema, insertEventSchema } from "@shared/schema";
 import { z } from "zod";
+import fs from "fs/promises";
+import path from "path";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Events endpoints (no authentication required)
+  app.get("/api/events", async (req, res) => {
+    try {
+      const eventsPath = path.join(process.cwd(), "client", "public", "data", "events.json");
+      const data = await fs.readFile(eventsPath, "utf8");
+      const events = JSON.parse(data);
+      res.json(events.events || []);
+    } catch (error) {
+      console.error("Error reading events:", error);
+      res.status(500).json({ message: "Failed to read events" });
+    }
+  });
+
+  app.post("/api/events", async (req, res) => {
+    try {
+      const validatedData = insertEventSchema.parse(req.body);
+      const eventsPath = path.join(process.cwd(), "client", "public", "data", "events.json");
+
+      // Read existing events
+      const data = await fs.readFile(eventsPath, "utf8");
+      const eventsData = JSON.parse(data);
+      const events = eventsData.events || [];
+
+      // Generate new ID
+      const nextId = events.length > 0 ? Math.max(...events.map((e: any) => e.id)) + 1 : 1;
+
+      // Add new event
+      const newEvent = {
+        id: nextId,
+        ...validatedData,
+      };
+
+      events.push(newEvent);
+
+      // Write back to file
+      await fs.writeFile(eventsPath, JSON.stringify({ events }, null, 2));
+
+      res.json({ message: "Event added successfully", event: newEvent });
+    } catch (error) {
+      console.error("Error adding event:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid event data", errors: error.errors });
+      }
+      res.status(500).json({ message: "Failed to add event" });
+    }
+  });
+
   // Auth middleware
   setupAuth(app);
 
   // Auth routes
-  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+  app.get("/api/auth/user", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -22,7 +71,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Contact form submission
-  app.post('/api/contact', async (req, res) => {
+  app.post("/api/contact", async (req, res) => {
     try {
       const validatedData = insertContactSubmissionSchema.parse(req.body);
       const submission = await storage.createContactSubmission(validatedData);
@@ -34,7 +83,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Newsletter subscription
-  app.post('/api/newsletter', async (req, res) => {
+  app.post("/api/newsletter", async (req, res) => {
     try {
       const validatedData = insertNewsletterSubscriptionSchema.parse(req.body);
       await storage.createNewsletterSubscription(validatedData);
@@ -46,15 +95,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Event registration (protected)
-  app.post('/api/events/register', isAuthenticated, async (req: any, res) => {
+  app.post("/api/events/register", isAuthenticated, async (req: any, res) => {
     try {
       const { eventName } = req.body;
       const userId = req.user.claims.sub;
-      
+
       if (!eventName) {
         return res.status(400).json({ message: "Event name is required" });
       }
-      
+
       await storage.registerForEvent(userId, eventName);
       res.json({ message: "Successfully registered for event" });
     } catch (error) {

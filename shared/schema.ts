@@ -1,13 +1,4 @@
-import {
-  pgTable,
-  text,
-  varchar,
-  timestamp,
-  jsonb,
-  index,
-  serial,
-  boolean,
-} from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, jsonb, index, serial, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -20,7 +11,7 @@ export const sessions = pgTable(
     sess: jsonb("sess").notNull(),
     expire: timestamp("expire").notNull(),
   },
-  (table) => [index("IDX_session_expire").on(table.expire)],
+  (table) => [index("IDX_session_expire").on(table.expire)]
 );
 
 // User storage table.
@@ -62,6 +53,25 @@ export const eventRegistrations = pgTable("event_registrations", {
   registeredAt: timestamp("registered_at").defaultNow(),
 });
 
+// Events table
+export const events = pgTable("events", {
+  id: serial("id").primaryKey(),
+  title: varchar("title").notNull(),
+  description: text("description").notNull(),
+  date: varchar("date").notNull(),
+  time: varchar("time").notNull(),
+  location: varchar("location").notNull(),
+  credits: varchar("credits"),
+  month: varchar("month"),
+  day: varchar("day"),
+  speakerName: varchar("speaker_name").notNull(),
+  speakerTitle: varchar("speaker_title"),
+  speakerSpecialty: varchar("speaker_specialty"),
+  speakerImage: varchar("speaker_image"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export type UpsertUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
 
@@ -77,7 +87,24 @@ export const insertNewsletterSubscriptionSchema = createInsertSchema(newsletterS
   email: true,
 });
 
+export const insertEventSchema = createInsertSchema(events).pick({
+  title: true,
+  description: true,
+  date: true,
+  time: true,
+  location: true,
+  credits: true,
+  month: true,
+  day: true,
+  speakerName: true,
+  speakerTitle: true,
+  speakerSpecialty: true,
+  speakerImage: true,
+});
+
 export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSchema>;
 export type InsertNewsletterSubscription = z.infer<typeof insertNewsletterSubscriptionSchema>;
+export type InsertEvent = z.infer<typeof insertEventSchema>;
 export type ContactSubmission = typeof contactSubmissions.$inferSelect;
 export type NewsletterSubscription = typeof newsletterSubscriptions.$inferSelect;
+export type Event = typeof events.$inferSelect;

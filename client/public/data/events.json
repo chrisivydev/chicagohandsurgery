@@ -1,0 +1,92 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "title": "Schenck Lectureship",
+      "description": "Multidisciplinary Management of the Mangled Hand",
+      "date": "2024-10-16",
+      "time": "18:30",
+      "location": "Capital Grille - 633 N. St Clair St, Chicago IL 60611, Valet Available",
+      "credits": "2.0 CME Credits",
+      "month": "OCT",
+      "day": "16",
+      "speakerName": "Jeffrey B. Friedrich, MD, MC, FACS",
+      "speakerTitle": "[ROLE]",
+      "speakerSpecialty": "[SPECIALTY]",
+      "speakerImage": "/assets/Home/api-bioimage-jeffrey-friedrich.jpg"
+    },
+    {
+      "id": 2,
+      "title": "International Guest Virtual Lecture",
+      "description": "Soft Tissue coverage in Major Upper Limb Trauma",
+      "date": "2024-12-11",
+      "time": "19:30",
+      "location": "University of Chicago Medicine",
+      "credits": "1.5 CME Credits",
+      "month": "DEC",
+      "day": "11",
+      "speakerName": "Dr. S Raja Sabapathy",
+      "speakerTitle": "[ROLE]",
+      "speakerSpecialty": "[SPECIALTY]",
+      "speakerImage": "/assets/Home/Raja Sabapathy - International 2024.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Blair Lectureship",
+      "description": "Wrist Arthroplasty: Why Can't We Catch Up?",
+      "date": "2025-02-19",
+      "time": "18:30",
+      "location": "Gibson's Steakhouse - 5464 N River Rd, Rosemont, IL",
+      "credits": "8.0 CME Credits",
+      "month": "MAY",
+      "day": "18",
+      "speakerName": "Harry Hoyen, MD",
+      "speakerTitle": "[ROLE]",
+      "speakerSpecialty": "[SPECIALTY]",
+      "speakerImage": "/assets/Home/Harry_Hoyen_-_Blair.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Mason-Stromberg Lectureship",
+      "description": "Wide Awake Hand Surgery: Why Are We Wasting Time In the Operating Room?",
+      "date": "2025-04-10",
+      "time": "18:30",
+      "location": "Morton's Steakhouse - 65 E. Wacker Pl, Chicago IL",
+      "credits": "8.0 CME Credits",
+      "month": "MAY",
+      "day": "18",
+      "speakerName": "Asif Ilyas, MD",
+      "speakerTitle": "[ROLE]",
+      "speakerSpecialty": "[SPECIALTY]",
+      "speakerImage": "/assets/Home/Asif Ilyas.jpg"
+    },
+    {
+      "id": 5,
+      "title": "TEST 3",
+      "description": "TEST 3",
+      "date": "",
+      "time": "",
+      "location": "TEST 3",
+      "month": "INVALID DATE",
+      "day": "NaN",
+      "speakerName": "TEST 3",
+      "speakerTitle": "TEST 3",
+      "speakerSpecialty": "TEST 3",
+      "speakerImage": ""
+    },
+    {
+      "id": 6,
+      "title": "TEST 4",
+      "description": "TEST 4",
+      "date": "2025-06-28",
+      "time": "19:00",
+      "location": "TEST 4",
+      "month": "JUN",
+      "day": "27",
+      "speakerName": "TEST 4",
+      "speakerTitle": "TEST 4",
+      "speakerSpecialty": "TEST 4",
+      "speakerImage": ""
+    }
+  ]
+}
