@@ -55,7 +55,7 @@ export default function About() {
                     <div className="flex items-start space-x-4">
                       <img src={`${assetPath}/about/Founders/bill-stromberg.jpg`} alt="Dr. Sidney Blair" className="w-40 h-40 rounded-lg object-contain flex-shrink-0" />
                       <div>
-                        <h3 className="font-semibold text-lg mb-1">William B. Stromberg Jr., MD (“Stromie”)</h3>
+                        <h3 className="font-semibold text-lg mb-1">William B. Stromberg Jr., MD ("Stromie")</h3>
                         <p className="text-gray-600 text-sm">
                           Earned his MD from Northwestern University and began teaching at Northwestern Medical School in 1958 alongside Doctors Koch, Mason, and Bell. A specialist in both adult and pediatric hand surgery, he was known as an
                           outstanding teacher and a valued friend. In 1984, he served as the third president of the Chicago Society for Surgery of the Hand.
@@ -85,7 +85,7 @@ export default function About() {
                     <div className="flex items-start space-x-4">
                       <img src={`${assetPath}/about/Founders/bob-schenk.png`} alt="Dr. Sidney Blair" className="w-40 h-40 rounded-lg object-contain flex-shrink-0" />
                       <div>
-                        <h3 className="font-semibold text-lg mb-1">Dr. Sidney Blair</h3>
+                        <h3 className="font-semibold text-lg mb-1">Robert R. Schenck, MD</h3>
                         <p className="text-gray-600 text-sm">
                           Born in Elmwood, Illinois in 1931 and served as the fifth president of the Chicago Society for Surgery of the Hand in 1986. He was a long-standing treasurer and historian of the organization. As Professor Emeritus in the
                           Hand Surgery Section of the Department of Plastic Surgery at Rush University, he was known for pioneering dynamic traction techniques for intraarticular finger fractures.
@@ -94,6 +94,11 @@ export default function About() {
                     </div>
                   </CardContent>
                 </Card>
+                <p className="text-gray-600 text-sm">
+                  <a href={`${assetPath}/History_-_Chicago_School_of_Hand_Surgery.pdf`} target="_blank" rel="noopener noreferrer">
+                    Read: History of Hand Surgery in Chicago
+                  </a>
+                </p>
               </div>
             </div>
           </div>

@@ -98,8 +98,13 @@ export default function Landing() {
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to The Chicago Society for Surgery of the Hand</h2>
               <p className="text-lg text-gray-600" style={{ textAlign: "justify" }}>
                 The Chicago Society for Surgery of the Hand is dedicated to advancing the field of hand surgery through ongoing education, professional collaboration, and the promotion of innovative research. Since 1978, we have brought together hand
-                surgeons from the Chicago metropolitan area and Rockford, Illinois to foster collegiality, share knowledge, and elevate patient care. Through regular forums, invited lectures, and the annual Sumner Koch award, we honor impactful
-                clinical research and support a thriving community committed to excellence in hand surgery.
+                surgeons from the Chicago metropolitan area and Rockford, Illinois to foster collegiality, share knowledge, and elevate patient care. Through regular forums,{" "}
+                <b>
+                  <a href="/events" target="_blank">
+                    invited lectures
+                  </a>
+                </b>
+                , and the annual Sumner Koch award, we honor impactful clinical research and support a thriving community committed to excellence in hand surgery.
               </p>
             </div>
           </div>
