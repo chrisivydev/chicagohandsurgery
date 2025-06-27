@@ -30,11 +30,27 @@ interface Event {
 
 // Helper function to format date for month/day display
 const formatDateForDisplay = (dateString: string) => {
-  const date = new Date(dateString);
+  // Parse the date string properly to avoid timezone issues
+  const [year, month, day] = dateString.split("-").map(Number);
+  const date = new Date(year, month - 1, day); // month is 0-indexed in Date constructor
+
   return {
     month: date.toLocaleDateString("en-US", { month: "short" }).toUpperCase(),
     day: date.getDate().toString(),
   };
+};
+
+// Helper function to format date for display (e.g., "December 15, 2024")
+const formatDateForDisplayText = (dateString: string) => {
+  // Parse the date string properly to avoid timezone issues
+  const [year, month, day] = dateString.split("-").map(Number);
+  const date = new Date(year, month - 1, day); // month is 0-indexed in Date constructor
+
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 };
 
 const pastEvents = [
@@ -91,9 +107,10 @@ export default function Events() {
 
         const data = await response.json();
         console.log("API Response:", data); // Debug log
-        // Ensure we always have an array
+        // Ensure we always have an array and sort by date (newest first)
         const eventsArray = Array.isArray(data) ? data : [];
-        setEvents(eventsArray);
+        const sortedEvents = eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        setEvents(sortedEvents);
       } catch (error) {
         console.error("Error loading events:", error);
         toast({
@@ -203,7 +220,8 @@ export default function Events() {
 
       const data = await reloadResponse.json();
       const eventsArray = Array.isArray(data) ? data : [];
-      setEvents(eventsArray);
+      const sortedEvents = eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      setEvents(sortedEvents);
 
       setIsAddEventOpen(false);
       setNewEvent({
@@ -305,7 +323,8 @@ export default function Events() {
 
       const data = await reloadResponse.json();
       const eventsArray = Array.isArray(data) ? data : [];
-      setEvents(eventsArray);
+      const sortedEvents = eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      setEvents(sortedEvents);
 
       setIsEditEventOpen(false);
       setEditingEvent(null);
@@ -367,7 +386,8 @@ export default function Events() {
 
       const data = await reloadResponse.json();
       const eventsArray = Array.isArray(data) ? data : [];
-      setEvents(eventsArray);
+      const sortedEvents = eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      setEvents(sortedEvents);
 
       toast({
         title: "Event Deleted",
@@ -549,7 +569,7 @@ export default function Events() {
                           <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
                             <span className="flex items-center">
                               <Calendar className="w-4 h-4 mr-1" />
-                              {event.date}
+                              {formatDateForDisplayText(event.date)}
                             </span>
                             <span className="flex items-center">
                               <Clock className="w-4 h-4 mr-1" />

@@ -3,8 +3,38 @@ import EventsLanding from "@/pages/EventsLanding";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { GraduationCap, Microscope, Users, BookOpen, Calendar, Newspaper, Mail } from "lucide-react";
+import { GraduationCap, Microscope, Users, BookOpen, Calendar, Newspaper, Mail, Clock, MapPin } from "lucide-react";
 import { assetPath } from "@/lib/utils";
+import { useState, useEffect } from "react";
+
+interface Event {
+  id: number;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  location: string;
+  credits?: string;
+  month?: string;
+  day?: string;
+  speakerName: string;
+  speakerTitle: string;
+  speakerSpecialty: string;
+  speakerImage: string;
+}
+
+// Helper function to format date for display (e.g., "December 15, 2024")
+const formatDateForDisplayText = (dateString: string) => {
+  // Parse the date string properly to avoid timezone issues
+  const [year, month, day] = dateString.split("-").map(Number);
+  const date = new Date(year, month - 1, day); // month is 0-indexed in Date constructor
+
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
 
 export default function Landing() {
   const handleLogin = () => {
@@ -48,7 +78,7 @@ export default function Landing() {
               </div>
             </div>
             <div className="hidden lg:block">
-              <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Medical professional consultation" className="rounded-xl shadow-2xl w-full h-auto object-cover" />
+              <img src={`${assetPath}/home/hero-hand2.png`} alt="Medical professional consultation" className="rounded-xl shadow-2xl w-full h-auto object-cover" />
             </div>
           </div>
         </div>
@@ -108,7 +138,7 @@ export default function Landing() {
         </div>
       </section>
 
-      <EventsLanding />
+      <TopEvents />
 
       {/* Quick Actions */}
       <section className="py-16">
@@ -159,5 +189,138 @@ export default function Landing() {
       </section>
       <Footer />
     </div>
+  );
+}
+
+// Component to display top 3 events
+function TopEvents() {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        const response = await fetch("/api/events", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const eventsArray = Array.isArray(data) ? data : [];
+        // Sort by date (newest first) and take only the first 3 events
+        const sortedEvents = eventsArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        setEvents(sortedEvents.slice(0, 3));
+      } catch (error) {
+        console.error("Error loading events:", error);
+        setEvents([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadEvents();
+  }, []);
+
+  const viewAllEvents = () => {
+    window.location.href = "/events";
+  };
+
+  if (isLoading) {
+    return (
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-gray-600">Loading events...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (events.length === 0) {
+    return (
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold mb-8">Upcoming Events</h2>
+            <p className="text-gray-600 mb-8">No events scheduled at this time.</p>
+            <Button onClick={viewAllEvents} className="bg-cssh-blue hover:bg-blue-700">
+              View All Events
+            </Button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="events-section" className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Upcoming Events</h2>
+          <p className="text-xl text-gray-600">Stay connected with our educational meetings and professional events</p>
+        </div>
+
+        <div className="space-y-6 mb-8">
+          {events.map((event) => (
+            <Card key={event.id} className="hover:shadow-md transition-shadow duration-200">
+              <CardContent className="p-6">
+                <div className="flex flex-col lg:flex-row gap-6">
+                  {/* Speaker Image */}
+                  <div className="flex-shrink-0">
+                    <img src={event.speakerImage} alt={event.speakerName} className="w-32 h-32 rounded-lg object-cover shadow-md" />
+                    <div className="bg-cssh-blue text-white rounded-lg p-3 mt-4 text-center min-w-[80px] flex-shrink-0">
+                      <div className="text-sm font-medium">{event.month}</div>
+                      <div className="text-2xl font-bold">{event.day}</div>
+                    </div>
+                  </div>
+
+                  {/* Event Details */}
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
+                    <p className="text-gray-600 mb-3">{event.description}</p>
+
+                    {/* Speaker Information */}
+                    <div className="mb-4">
+                      <h4 className="font-semibold text-lg text-gray-900 mb-1">{event.speakerName}</h4>
+                      <p className="text-gray-700 mb-1">{event.speakerTitle}</p>
+                      <p className="text-gray-600 text-sm">{event.speakerSpecialty}</p>
+                    </div>
+
+                    {/* Event Details */}
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+                      <span className="flex items-center">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        {formatDateForDisplayText(event.date)}
+                      </span>
+                      <span className="flex items-center">
+                        <Clock className="w-4 h-4 mr-1" />
+                        {event.time}
+                      </span>
+                      <span className="flex items-center">
+                        <MapPin className="w-4 h-4 mr-1" />
+                        {event.location}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <Button onClick={viewAllEvents} className="bg-cssh-blue hover:bg-blue-700 px-8 py-3">
+            View All Events
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 }
